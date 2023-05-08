@@ -1,24 +1,22 @@
-import logo from './logo.svg';
+import { useContext, useState } from 'react';
 import './App.css';
+import Level1 from './components/Level1';
+import { THEME, ThemeModeContext } from './contexts/ThemeModeContext';
 
 function App() {
+  const initialThemeMode = useContext(ThemeModeContext);
+  const [themeMode, setThemeMode] = useState(initialThemeMode);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <ThemeModeContext.Provider value={{ themeMode, setThemeMode }}>
+    <div style={{
+      color: THEME[themeMode].textColor,
+      backgroundColor: THEME[themeMode].backgroundColor,
+      height: "100vh",
+    }} >
+      <Level1/>
     </div>
+    </ThemeModeContext.Provider>
   );
 }
 
